@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#080d19">
+<title>PRO GAME HUB</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#070b14;color:#fff}
+body{overflow-x:hidden}.hidden{display:none!important}button,input{font:inherit}button{border:0;cursor:pointer}
+.auth{min-height:100vh;display:grid;place-items:center;padding:18px;background:radial-gradient(circle at top,#1b2b50,#080d19 58%)}
+.auth-card{width:min(440px,100%);background:#11192a;border:1px solid #2a395d;border-radius:26px;padding:24px;box-shadow:0 25px 80px #0009}
+.logo{font-weight:900;letter-spacing:2px;font-size:28px}.logo span,.brand span{color:#67e8f9}
+.sub{color:#91a0bb;font-size:13px;margin:6px 0 22px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;background:#0a1120;border-radius:12px;padding:4px;margin-bottom:18px}.tab{padding:11px;border-radius:9px;background:transparent;color:#8796b2}.tab.active{background:#25365b;color:#fff}
+.field{margin:11px 0}.field label{display:block;color:#aebbd2;font-size:12px;margin-bottom:7px}.field input{width:100%;padding:13px 14px;border-radius:12px;border:1px solid #33415f;background:#0a1120;color:#fff;outline:none}.field input:focus{border-color:#67e8f9}
+.primary{width:100%;padding:14px;border-radius:13px;background:linear-gradient(135deg,#25c9ef,#7357ff);color:#fff;font-weight:800;margin-top:8px}.msg{min-height:20px;color:#ff8794;font-size:12px;margin:8px 0}.demo-note{text-align:center;color:#70809d;font-size:11px;margin-top:13px}
+.header{position:sticky;top:0;z-index:10;background:#090e1bf2;border-bottom:1px solid #202c47;backdrop-filter:blur(15px)}.header-inner{max-width:1100px;margin:auto;padding:13px 16px;display:flex;align-items:center;gap:10px}.brand{font-weight:900;letter-spacing:1px;flex:1}.coins{background:#17223b;border:1px solid #30405f;padding:8px 11px;border-radius:999px;color:#ffd76b;font-weight:900}.icon-btn,.small-btn{background:#182541;color:#e6efff;border:1px solid #2d3d61;border-radius:10px;padding:9px 11px}
+.main{max-width:1100px;margin:auto;padding:18px 16px 100px}.page{display:none}.page.active{display:block}
+.hero{background:linear-gradient(135deg,#17284b,#161d3a);border:1px solid #2d3e66;border-radius:24px;padding:24px;margin-bottom:18px;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:#38d9ff18;right:-55px;top:-55px}.hero h1{margin:0 0 7px;font-size:27px}.hero p{margin:0;color:#9eacc5}.section-title{font-size:20px;margin:8px 0 13px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{background:#10182a;border:1px solid #263553;border-radius:18px;padding:17px}.card h3{margin:0 0 7px;font-size:16px}.muted{color:#8998b4;font-size:12px}.menu-card{min-height:110px;text-align:left;color:#fff}.menu-card:active,.buy:active,.primary:active{transform:scale(.98)}.big{font-size:27px;margin-bottom:9px}
+.shop-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.shop-card{position:relative}.coin-icon{font-size:30px}.amount{font-size:21px;font-weight:900;margin:6px 0}.buy{width:100%;padding:11px;border-radius:10px;background:#263b72;color:#fff;font-weight:800;margin-top:10px}
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.stat strong{display:block;font-size:25px;margin-top:5px}.row{display:flex;justify-content:space-between;align-items:center;gap:12px}.list{display:grid;gap:8px;margin-top:12px}.tx{display:flex;justify-content:space-between;gap:10px;background:#0a1120;border:1px solid #1e2a44;border-radius:11px;padding:10px;font-size:12px}.positive{color:#68f0a5}.negative{color:#ff8996}
+.settings{display:grid;gap:10px}.setting{display:flex;justify-content:space-between;align-items:center;background:#10182a;border:1px solid #263553;border-radius:15px;padding:14px}.toggle{width:48px;height:28px;border-radius:20px;background:#34415d;position:relative}.toggle:after{content:"";position:absolute;width:22px;height:22px;top:3px;left:3px;border-radius:50%;background:#fff;transition:.2s}.toggle.on{background:#4c70ff}.toggle.on:after{left:23px}
+.notice{position:fixed;left:50%;bottom:78px;transform:translate(-50%,20px);opacity:0;z-index:50;background:#16233d;border:1px solid #354b76;padding:12px 16px;border-radius:12px;transition:.2s;pointer-events:none;font-size:13px}.notice.show{opacity:1;transform:translate(-50%,0)}
+.bottom{position:fixed;bottom:0;left:0;right:0;z-index:20;background:#090e1bf7;border-top:1px solid #202b46}.nav{max-width:700px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr)}.nav button{background:none;color:#71809e;padding:10px 4px;font-size:10px}.nav button.active{color:#67e8f9}.nav .ico{display:block;font-size:20px;margin-bottom:2px}
+.modal{position:fixed;inset:0;background:#0009;display:grid;place-items:center;padding:18px;z-index:40}.modal-box{width:min(420px,100%);background:#121b2e;border:1px solid #334464;border-radius:20px;padding:20px}.modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}.modal-actions button{padding:12px;border-radius:11px}.cancel{background:#25314a;color:#fff}.confirm{background:#3157d5;color:#fff;font-weight:800}
+.game-placeholder{min-height:360px;display:grid;place-items:center;text-align:center;background:radial-gradient(circle,#17284a,#0d1424);border:1px solid #2b3c60;border-radius:24px;padding:25px}.game-placeholder .board{width:min(280px,70vw);aspect-ratio:1;background:linear-gradient(135deg,#7b431f,#d39a55,#8b4b22);border:15px solid #532b16;border-radius:20px;display:grid;place-items:center;box-shadow:0 20px 50px #0008}.game-placeholder .board:after{content:"🎱";font-size:60px;filter:drop-shadow(0 6px 5px #0008)}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}.shop-grid{grid-template-columns:repeat(5,1fr)}.stat-grid{grid-template-columns:repeat(4,1fr)}.bottom{left:auto;right:auto;max-width:700px;margin:auto;border-radius:18px 18px 0 0}}
+</style>
+</head>
+<body>
+<div id="auth" class="auth">
+  <div class="auth-card">
+    <div class="logo">PRO <span>GAME HUB</span></div>
+    <div class="sub">MOBILE GAMING PLATFORM</div>
+    <div class="tabs"><button id="loginTab" class="tab active">LOGIN</button><button id="registerTab" class="tab">REGISTER</button></div>
+    <form id="loginForm">
+      <div class="field"><label>USERNAME OR EMAIL</label><input id="loginId" autocomplete="username" required></div>
+      <div class="field"><label>PASSWORD</label><input id="loginPass" type="password" autocomplete="current-password" required></div>
+      <div id="loginMsg" class="msg"></div><button class="primary">LOGIN & PLAY</button>
+    </form>
+    <form id="registerForm" class="hidden">
+      <div class="field"><label>USERNAME</label><input id="regUser" maxlength="20" autocomplete="username" required></div>
+      <div class="field"><label>EMAIL</label><input id="regEmail" type="email" autocomplete="email" required></div>
+      <div class="field"><label>PASSWORD</label><input id="regPass" type="password" minlength="6" autocomplete="new-password" required></div>
+      <div class="field"><label>CONFIRM PASSWORD</label><input id="regConfirm" type="password" minlength="6" autocomplete="new-password" required></div>
+      <div id="regMsg" class="msg"></div><button class="primary">REGISTER & PLAY</button>
+    </form>
+    <div class="demo-note">Offline demo account system • Data stays in this browser</div>
+  </div>
+</div>
+
+<div id="app" class="app hidden">
+<header class="header"><div class="header-inner">
+  <div class="brand">PRO <span>GAME HUB</span></div>
+  <div id="headerCoins" class="coins">🪙 0</div>
+  <button id="profileTop" class="icon-btn">👤</button>
+  <button id="logoutTop" class="icon-btn">↪</button>
+</div></header>
+
+<main class="main">
+<section id="home" class="page active">
+  <div class="hero"><h1>Welcome, <span id="welcomeUser">Player</span> 👋</h1><p>Your gaming hub is ready. Choose a game and start playing.</p></div>
+  <div class="section-title">Quick Menu</div>
+  <div class="grid">
+    <button class="card menu-card" data-page="play"><div class="big">🎮</div><h3>PLAY</h3><div class="muted">Choose your game</div></button>
+    <button class="card menu-card" data-page="shop"><div class="big">🪙</div><h3>COIN SHOP</h3><div class="muted">Get virtual coins</div></button>
+    <button class="card menu-card" data-page="profile"><div class="big">👤</div><h3>PROFILE</h3><div class="muted">Your account</div></button>
+    <button class="card menu-card" data-page="stats"><div class="big">📊</div><h3>STATISTICS</h3><div class="muted">Track your progress</div></button>
+  </div>
+</section>
+
+<section id="play" class="page">
+  <div class="hero"><h1>🎮 Play</h1><p>Select a game mode.</p></div>
+  <div class="grid">
+    <button id="carromBtn" class="card menu-card"><div class="big">🏆</div><h3>PLAY CARROM</h3><div class="muted">Open Carrom</div></button>
+    <button class="card menu-card" onclick="toast('Practice mode is ready for the Carrom module.')"><div class="big">🎯</div><h3>PRACTICE</h3><div class="muted">Train your aim</div></button>
+    <button class="card menu-card" onclick="toast('AI mode is prepared for the Carrom module.')"><div class="big">🤖</div><h3>PLAY VS AI</h3><div class="muted">Challenge AI</div></button>
+    <button class="card menu-card" onclick="toast('Local 2 Player is prepared for the Carrom module.')"><div class="big">👥</div><h3>LOCAL 2 PLAYER</h3><div class="muted">Play together</div></button>
+  </div>
+  <div id="gameArea" class="hidden" style="margin-top:16px">
+    <div class="game-placeholder"><div><div class="board"></div><h2>CARROM GAME AREA</h2><p class="muted">This section is ready for the full Canvas Carrom engine.</p><button class="small-btn" onclick="document.getElementById('gameArea').classList.add('hidden')">CLOSE</button></div></div>
+  </div>
+</section>
+
+<section id="shop" class="page">
+  <div class="hero"><h1>🪙 Coin Shop</h1><p>Demo virtual coins. No real money is charged.</p></div>
+  <div id="shopGrid" class="shop-grid"></div>
+  <div class="card" style="margin-top:14px"><h3>Recent Transactions</h3><div id="transactions" class="list"></div></div>
+</section>
+
+<section id="profile" class="page">
+  <div class="hero"><h1>👤 Profile</h1><p>Your account information.</p></div>
+  <div class="card">
+    <div class="row"><div><div class="muted">USERNAME</div><h2 id="profileUser">-</h2></div><button class="small-btn" id="editProfile">EDIT</button></div>
+    <hr style="border:0;border-top:1px solid #263553;margin:16px 0">
+    <p><span class="muted">EMAIL</span><br><span id="profileEmail">-</span></p>
+    <p><span class="muted">JOINED</span><br><span id="profileDate">-</span></p>
+    <p><span class="muted">COINS</span><br><span id="profileCoins">0</span></p>
+    <button class="small-btn danger" id="logoutProfile">LOGOUT</button>
+  </div>
+</section>
+
+<section id="stats" class="page">
+  <div class="hero"><h1>📊 Statistics</h1><p>Your local game statistics.</p></div>
+  <div class="stat-grid">
+    <div class="card stat"><span class="muted">GAMES</span><strong id="stGames">0</strong></div>
+    <div class="card stat"><span class="muted">WINS</span><strong id="stWins">0</strong></div>
+    <div class="card stat"><span class="muted">LOSSES</span><strong id="stLosses">0</strong></div>
+    <div class="card stat"><span class="muted">WIN %</span><strong id="stWinPct">0%</strong></div>
+  </div>
+  <div class="card" style="margin-top:12px"><div class="row"><span>Coins earned</span><b id="stEarned">0</b></div><div class="row" style="margin-top:10px"><span>Coins spent</span><b id="stSpent">0</b></div><div class="row" style="margin-top:10px"><span>Current balance</span><b id="stCoins">0</b></div></div>
+</section>
+
+<section id="settings" class="page">
+  <div class="hero"><h1>⚙️ Settings</h1><p>Customize your experience.</p></div>
+  <div class="settings">
+    <div class="setting"><span>🔊 Sound</span><button id="soundToggle" class="toggle"></button></div>
+    <div class="setting"><span>🎵 Music</span><button id="musicToggle" class="toggle"></button></div>
+    <div class="setting"><span>🔔 Notifications</span><button id="notifyToggle" class="toggle"></button></div>
+    <button id="resetData" class="setting danger" style="color:#fff">Reset local demo data</button>
+  </div>
+</section>
+</main>
+
+<nav class="bottom"><div class="nav">
+<button data-page="home" class="active"><span class="ico">⌂</span>HOME</button>
+<button data-page="play"><span class="ico">🎮</span>PLAY</button>
+<button data-page="shop"><span class="ico">🪙</span>SHOP</button>
+<button data-page="stats"><span class="ico">📊</span>STATS</button>
+<button data-page="settings"><span class="ico">⚙️</span>SETTINGS</button>
+</div></nav>
+</div>
+
+<div id="notice" class="notice"></div>
+<div id="modal" class="modal hidden"><div class="modal-box"><h2 id="modalTitle">Confirm</h2><p id="modalText" class="muted"></p><div class="modal-actions"><button id="modalCancel" class="cancel">CANCEL</button><button id="modalConfirm" class="confirm">CONFIRM</button></div></div></div>
+
+<script>
+'use strict';
+
+const USERS_KEY='pgh_users_v1', SESSION_KEY='pgh_session_v1', SETTINGS_KEY='pgh_settings_v1';
+const packages=[
+ {id:'starter',name:'STARTER',coins:1000},
+ {id:'small',name:'SMALL',coins:5000},
+ {id:'medium',name:'MEDIUM',coins:15000},
+ {id:'large',name:'LARGE',coins:50000},
+ {id:'mega',name:'MEGA',coins:100000}
+];
+
+const $=id=>document.getElementById(id);
+const load=(key,fallback)=>{try{const v=JSON.parse(localStorage.getItem(key));return v??fallback}catch{return fallback}};
+const save=(key,val)=>localStorage.setItem(key,JSON.stringify(val));
+const users=()=>load(USERS_KEY,[]);
+let currentUser=null;
+
+function toast(message){
+ const n=$('notice'); n.textContent=message; n.classList.add('show');
+ clearTimeout(window.__toast); window.__toast=setTimeout(()=>n.classList.remove('show'),2200);
+}
+function setMsg(id,msg){$(id).textContent=msg}
+function validEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)}
+function sanitizeUsername(u){return u.trim().replace(/\s+/g,' ')}
+function hashDemo(s){
+ let h=2166136261;
+ for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}
+ return (h>>>0).toString(16);
+}
+function getUser(){
+ if(!currentUser)return null;
+ return users().find(u=>u.id===currentUser)||null;
+}
+function updateUser(mutator){
+ const arr=users(),i=arr.findIndex(u=>u.id===currentUser);
+ if(i<0)return null; mutator(arr[i]); save(USERS_KEY,arr); return arr[i];
+}
+function defaultSettings(){return {sound:true,music:true,notifications:true}}
+function getSettings(){return load(SETTINGS_KEY,defaultSettings())}
+
+function showAuth(mode='login'){
+ $('auth').classList.remove('hidden'); $('app').classList.add('hidden');
+ $('loginForm').classList.toggle('hidden',mode!=='login'); $('registerForm').classList.toggle('hidden',mode!=='register');
+ $('loginTab').classList.toggle('active',mode==='login'); $('registerTab').classList.toggle('active',mode==='register');
+ setMsg('loginMsg','');setMsg('regMsg','');
+}
+function enterApp(id){
+ currentUser=id; save(SESSION_KEY,id); $('auth').classList.add('hidden'); $('app').classList.remove('hidden'); renderAll(); go('home');
+}
+function logout(){
+ currentUser=null;localStorage.removeItem(SESSION_KEY);showAuth('login');toast('Logged out');
+}
+
+$('loginTab').onclick=()=>showAuth('login');
+$('registerTab').onclick=()=>showAuth('register');
+
+$('registerForm').onsubmit=e=>{
+ e.preventDefault(); setMsg('regMsg','');
+ const username=sanitizeUsername($('regUser').value),email=$('regEmail').value.trim().toLowerCase(),pass=$('regPass').value,confirm=$('regConfirm').value;
+ if(username.length<3)return setMsg('regMsg','Username must be at least 3 characters.');
+ if(!validEmail(email))return setMsg('regMsg','Enter a valid email.');
+ if(pass.length<6)return setMsg('regMsg','Password must be at least 6 characters.');
+ if(pass!==confirm)return setMsg('regMsg','Passwords do not match.');
+ const arr=users();
+ if(arr.some(u=>u.username.toLowerCase()===username.toLowerCase()))return setMsg('regMsg','Username already exists.');
+ if(arr.some(u=>u.email===email))return setMsg('regMsg','Email already exists.');
+ const id=crypto.randomUUID?crypto.randomUUID():Date.now()+'_'+Math.random();
+ arr.push({id,username,email,passwordHash:hashDemo(pass),createdAt:new Date().toISOString(),coins:1000,coinsEarned:1000,coinsSpent:0,gamesPlayed:0,gamesWon:0,gamesLost:0,transactions:[{id:Date.now(),type:'BONUS',amount:1000,description:'Welcome bonus',timestamp:new Date().toISOString()}]});
+ save(USERS_KEY,arr); enterApp(id); toast('Account created • 1,000 coins added');
+ e.target.reset();
+};
+
+$('loginForm').onsubmit=e=>{
+ e.preventDefault();setMsg('loginMsg','');
+ const id=$('loginId').value.trim().toLowerCase(),pass=$('loginPass').value;
+ const u=users().find(x=>x.email===id||x.username.toLowerCase()===id);
+ if(!u||u.passwordHash!==hashDemo(pass))return setMsg('loginMsg','Incorrect username/email or password.');
+ enterApp(u.id);e.target.reset();
+};
+
+function go(page){
+ document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===page));
+ document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
+ window.scrollTo({top:0,behavior:'smooth'});renderAll();
+}
+document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));
+$('profileTop').onclick=()=>go('profile');
+$('logoutTop').onclick=logout;
+$('logoutProfile').onclick=logout;
+
+function renderAll(){
+ const u=getUser();if(!u)return;
+ $('welcomeUser').textContent=u.username;
+ $('headerCoins').textContent='🪙 '+u.coins.toLocaleString();
+ $('profileUser').textContent=u.username;$('profileEmail').textContent=u.email;
+ $('profileDate').textContent=new Date(u.createdAt).toLocaleDateString();
+ $('profileCoins').textContent=u.coins.toLocaleString();
+ $('stGames').textContent=u.gamesPlayed;$('stWins').textContent=u.gamesWon;$('stLosses').textContent=u.gamesLost;
+ $('stWinPct').textContent=(u.gamesPlayed?Math.round(u.gamesWon/u.gamesPlayed*100):0)+'%';
+ $('stEarned').textContent=u.coinsEarned.toLocaleString();$('stSpent').textContent=u.coinsSpent.toLocaleString();$('stCoins').textContent=u.coins.toLocaleString();
+ renderShop();renderTransactions();renderSettings();
+}
+function renderShop(){
+ $('shopGrid').innerHTML=packages.map(p=>`<div class="card shop-card"><div class="coin-icon">🪙</div><h3>${p.name}</h3><div class="amount">${p.coins.toLocaleString()}</div><div class="muted">virtual coins</div><button class="buy" data-buy="${p.id}">BUY DEMO</button></div>`).join('');
+ document.querySelectorAll('[data-buy]').forEach(b=>b.onclick=()=>openPurchase(b.dataset.buy));
+}
+function renderTransactions(){
+ const tx=(getUser()?.transactions||[]).slice().reverse().slice(0,8);
+ $('transactions').innerHTML=tx.length?tx.map(t=>`<div class="tx"><span>${escapeHtml(t.description)}<br><small class="muted">${new Date(t.timestamp).toLocaleString()}</small></span><b class="${t.amount>=0?'positive':'negative'}">${t.amount>=0?'+':''}${t.amount.toLocaleString()}</b></div>`).join(''):'<div class="muted">No transactions yet.</div>';
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+
+function openPurchase(packageId){
+ const p=packages.find(x=>x.id===packageId);if(!p)return;
+ openModal('Demo purchase',`Add ${p.coins.toLocaleString()} virtual coins to your account? No real money will be charged.`,()=>{
+   updateUser(u=>{u.coins+=p.coins;u.coinsEarned+=p.coins;u.transactions.push({id:Date.now(),type:'DEMO_PURCHASE',amount:p.coins,description:`Demo ${p.name} coin purchase`,timestamp:new Date().toISOString()})});
+   renderAll();toast(`${p.coins.toLocaleString()} coins added`);
+ });
+}
+function openModal(title,text,action){
+ $('modalTitle').textContent=title;$('modalText').textContent=text;$('modal').classList.remove('hidden');
+ $('modalConfirm').onclick=()=>{closeModal();action()};
+ $('modalCancel').onclick=closeModal;
+}
+function closeModal(){$('modal').classList.add('hidden')}
+
+$('editProfile').onclick=()=>{
+ const u=getUser(); if(!u)return;
+ const name=prompt('New username:',u.username);if(name===null)return;
+ const clean=sanitizeUsername(name);if(clean.length<3)return toast('Username too short.');
+ if(users().some(x=>x.id!==u.id&&x.username.toLowerCase()===clean.toLowerCase()))return toast('Username already exists.');
+ updateUser(x=>x.username=clean);renderAll();toast('Profile updated');
+};
+
+$('carromBtn').onclick=()=>{$('gameArea').classList.remove('hidden');$('gameArea').scrollIntoView({behavior:'smooth'})};
+
+function renderSettings(){
+ const s=getSettings();
+ [['soundToggle',s.sound],['musicToggle',s.music],['notifyToggle',s.notifications]].forEach(([id,on])=>$(id).classList.toggle('on',!!on));
+}
+function toggleSetting(key,id){
+ const s=getSettings();s[key]=!s[key];save(SETTINGS_KEY,s);renderSettings();toast(key+' '+(s[key]?'ON':'OFF'));
+}
+$('soundToggle').onclick=()=>toggleSetting('sound','soundToggle');
+$('musicToggle').onclick=()=>toggleSetting('music','musicToggle');
+$('notifyToggle').onclick=()=>toggleSetting('notifications','notifyToggle');
+
+$('resetData').onclick=()=>openModal('Reset demo data','This will delete all local accounts, coins and statistics on this browser.',()=>{
+ localStorage.removeItem(USERS_KEY);localStorage.removeItem(SESSION_KEY);currentUser=null;showAuth('register');toast('Local demo data reset');
+});
+
+(function init(){
+ const sid=localStorage.getItem(SESSION_KEY),arr=users();
+ if(sid&&arr.some(u=>u.id===sid)){currentUser=sid;$('auth').classList.add('hidden');$('app').classList.remove('hidden');renderAll()}
+ else showAuth('login');
+})();
+</script>
+</body>
+</html>
